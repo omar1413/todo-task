@@ -23,4 +23,8 @@ class TasksListViewModel(application: Application): ViewModelBase(application){
         return repository.updateTask(task)
     }
 
+    fun saveCurrentTask(task: Task) {
+        repository.saveCurrentTask(task)
+    }
+
 }

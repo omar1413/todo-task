@@ -12,6 +12,7 @@ class AppSharedPref @Inject constructor(var sharedPreferences: SharedPreferences
 
     companion object {
         private val USER_ID_KEY = "USER_ID_KEY"
+        private val TASK_ID_KEY = "TASK_ID_KEY"
     }
 
     private fun setString(key: String, value: String){
@@ -38,6 +39,16 @@ class AppSharedPref @Inject constructor(var sharedPreferences: SharedPreferences
     fun getCurrentUser(): Int?{
         val v = getInt(USER_ID_KEY, -1)
         if (v == -1) return null
+        return v
+    }
+
+    fun saveCurrentTask(id: Int) {
+        setInt(TASK_ID_KEY, id)
+    }
+
+    fun getCurrentTask(): Int?{
+        val v = getInt(TASK_ID_KEY, -1)
+        if(v == -1) return null
         return v
     }
 

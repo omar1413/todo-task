@@ -8,6 +8,7 @@ import com.example.omar.taskmanager.ui.login.LoginActivity
 import com.example.omar.taskmanager.ui.login.LoginViewModel
 import com.example.omar.taskmanager.dagger.qualifier.ActivityContext
 import com.example.omar.taskmanager.dagger.scope.ActivityScope
+import com.example.omar.taskmanager.ui.task_details.TaskDetailsViewModel
 import com.example.omar.taskmanager.ui.tasks.TasksListViewModel
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
@@ -54,5 +55,11 @@ class ActivityModule( val activity: AppCompatActivity){
     @Provides
     fun getTaskListViewModel():TasksListViewModel{
         return ViewModelProviders.of(activity).get(TasksListViewModel::class.java)
+    }
+
+    @ActivityScope
+    @Provides
+    fun getTaskDetailsViewModel():TaskDetailsViewModel{
+        return ViewModelProviders.of(activity).get(TaskDetailsViewModel::class.java)
     }
 }

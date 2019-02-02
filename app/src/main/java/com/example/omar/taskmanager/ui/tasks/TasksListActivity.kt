@@ -1,5 +1,6 @@
 package com.example.omar.taskmanager.ui.tasks
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -13,6 +14,7 @@ import com.example.omar.taskmanager.TaskManagerApp
 import com.example.omar.taskmanager.dagger.component.DaggerActivityComponent
 import com.example.omar.taskmanager.dagger.module.ActivityModule
 import com.example.omar.taskmanager.data.database.tables.Task
+import com.example.omar.taskmanager.ui.task_details.TaskDetailsActivity
 import com.example.omar.taskmanager.utils.TaskItemDiffUtilityCallback
 import com.example.omar.taskmanager.utils.TaskListUpdateCallback
 import com.xwray.groupie.GroupAdapter
@@ -33,6 +35,11 @@ class TasksListActivity : AppCompatActivity() {
     lateinit var taskListVm: TasksListViewModel
 
     var callbackTaskItem = object : TaskItem.CallbackTaskItem {
+        override fun taskClicked(task: Task) {
+            saveCurrentTask(task)
+            gotoTaskDetailsActivity()
+        }
+
         override fun taskUpdated(task: Task) {
             taskListVm.updateTask(task).observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -41,6 +48,18 @@ class TasksListActivity : AppCompatActivity() {
                     Log.d("", "")
                 })
         }
+
+    }
+
+    private fun saveCurrentTask(task:Task) {
+
+        taskListVm.saveCurrentTask(task)
+
+    }
+
+    private fun gotoTaskDetailsActivity() {
+        val intent = Intent(this,TaskDetailsActivity::class.java)
+        startActivity(intent)
 
     }
 
@@ -68,8 +87,15 @@ class TasksListActivity : AppCompatActivity() {
 
         setupRecycler()
 
-
+        val g = this
         taskListVm.getCurrentUser()?.observeOn(AndroidSchedulers.mainThread())?.subscribe({
+
+
+            taskListVm.getTasks(5).observe(g,object :Observer<List<Task>>{
+                override fun onChanged(t: List<Task>?) {
+
+                }
+            })
             taskListVm.getTasks(it.id).observe(this, object : Observer<List<Task>> {
                 override fun onChanged(t: List<Task>?) {
 

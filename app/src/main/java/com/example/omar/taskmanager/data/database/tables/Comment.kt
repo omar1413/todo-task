@@ -15,8 +15,19 @@ import java.util.*
     )]
 )
 class Comment(
-    @PrimaryKey(autoGenerate = true) var id: Int,
+
     var content: String,
     var date: Date,
     @ColumnInfo(name = "task_id") var taskId: Int
-)
+){
+    @PrimaryKey(autoGenerate = true) var id: Int = 0
+
+    override fun equals(other: Any?): Boolean {
+        val comment = other as Comment
+        if (content.equals(comment.content) && date.equals(comment.date) && taskId == comment.taskId){
+            return true
+        }
+        return false
+    }
+
+}

@@ -13,6 +13,6 @@ interface CommentDao{
     @Insert
     fun insertComment(comment: Comment):Completable
 
-    @Query("Select * from comment_table")
-    fun getAllComments():LiveData<List<Comment>>
+    @Query("Select * from comment_table where task_id = :taskId")
+    fun getAllComments(taskId: Int):LiveData<List<Comment>>
 }

@@ -2,6 +2,7 @@ package com.example.omar.taskmanager.data
 
 import androidx.lifecycle.LiveData
 import com.example.omar.taskmanager.data.database.TaskManagerDatabase
+import com.example.omar.taskmanager.data.database.tables.Comment
 import com.example.omar.taskmanager.data.database.tables.Task
 import com.example.omar.taskmanager.data.database.tables.User
 import com.example.omar.taskmanager.data.shared_pref.AppSharedPref
@@ -50,6 +51,23 @@ class Repository(val taskManagerDatabase: TaskManagerDatabase, val appSharedPref
 
     fun updateTask(task: Task): Completable {
         return taskManagerDatabase.taskDao().updateTask(task).subscribeOn(Schedulers.io())
+    }
+
+    fun saveCurrentTask(task: Task) {
+        appSharedPref.saveCurrentTask(task.id)
+    }
+
+    fun getCurerntTask():LiveData<Task>?{
+        val id = appSharedPref.getCurrentTask()
+        if (id != null) {
+            return taskManagerDatabase.taskDao().getTask(id)
+        }
+
+        return null
+    }
+
+    fun getComments(id: Int): LiveData<List<Comment>> {
+        return taskManagerDatabase.commentDao().getAllComments(id)
     }
 
 }

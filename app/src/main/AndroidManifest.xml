@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".ui.tasks.TasksListActivity">
         </activity>
+        <activity android:name=".ui.task_details.TaskDetailsActivity">
+        </activity>
     </application>
 
 </manifest>

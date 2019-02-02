@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.task_details.TaskDetailsActivity">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/task_details_recycler_view"
+            app:layout_constraintBottom_toTopOf="@+id/view4"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"/>
+
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#e6e1e1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/view4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <EditText
+            android:background="@drawable/login_username_edtxt"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:inputType="textPersonName"
+            android:hint="Comment"
+            android:paddingLeft="10dp"
+            android:ems="10"
+            android:id="@+id/editText" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="@+id/view4" android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/view4" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/button" android:layout_marginRight="8dp"/>
+    <Button
+            android:background="@drawable/send_comment"
+            android:layout_width="60dp"
+            android:layout_height="60dp" android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:id="@+id/button"
+            app:layout_constraintTop_toTopOf="@+id/view4" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view4"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

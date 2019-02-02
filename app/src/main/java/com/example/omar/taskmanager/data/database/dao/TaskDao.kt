@@ -19,6 +19,9 @@ interface TaskDao{
     @Delete
     fun deleteTask(task: Task):Completable
 
+    @Query("Select * From task_table where id = :id")
+    fun getTask(id: Int):LiveData<Task>
+
     @Query("Select * From task_table where user_id = :userId")
     fun getAllTasks(userId: Int): LiveData<List<Task>>
 }
