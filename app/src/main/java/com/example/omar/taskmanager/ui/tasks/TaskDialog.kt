@@ -54,7 +54,7 @@ class TaskDialog(): DialogFragment(){
         view.task_create_btn.setOnClickListener {
             val taskTitle = view.task_title_edtxt.text.toString()
 
-            taskCreateViewModel.createTask(Task(taskTitle,Task.Status.IN_PROGRESS,Date(),Task.Priority.MEDIUM,user.id)).subscribe(
+            taskCreateViewModel.createTask(Task(taskTitle,Task.Status.IN_PROGRESS,Task.Priority.MEDIUM,user.id)).subscribe(
                 {
                     //done
                     Log.d("", "")

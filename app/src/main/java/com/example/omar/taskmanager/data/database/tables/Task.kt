@@ -17,12 +17,13 @@ import java.util.*
 class Task(
     var title: String,
     var status: Int,
-    var date: Date,
+
     var priority: Int,
     @ColumnInfo(name = "user_id") var userId: Int
 ){
 
 
+    var date: Date? = null
     @PrimaryKey(autoGenerate = true) var id: Int = 0
 
   class Status{

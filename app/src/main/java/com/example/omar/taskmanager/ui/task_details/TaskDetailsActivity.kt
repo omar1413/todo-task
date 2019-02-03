@@ -1,7 +1,10 @@
 package com.example.omar.taskmanager.ui.task_details
 
+import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,11 +14,15 @@ import com.example.omar.taskmanager.dagger.component.DaggerActivityComponent
 import com.example.omar.taskmanager.dagger.module.ActivityModule
 import com.example.omar.taskmanager.data.database.tables.Comment
 import com.example.omar.taskmanager.data.database.tables.Task
+import com.example.omar.taskmanager.ui.tasks.TasksListActivity
 import com.example.omar.taskmanager.utils.Utils.Companion.createTask
 import com.xwray.groupie.Group
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_task_details.*
+import kotlinx.android.synthetic.main.activity_tasks_list.*
+import kotlinx.android.synthetic.main.task_details_header.*
 import java.util.*
 import javax.inject.Inject
 
@@ -36,7 +43,11 @@ class TaskDetailsActivity : AppCompatActivity() {
 
     val callback = object : TaskDetailsHeader.CallbackTaskHeader {
         override fun taskUpdated(task: Task) {
-            taskDetailsVM.updateTask(task).subscribe({}, {})
+            taskDetailsVM.updateTask(task).subscribe({
+                Log.d("","")
+            }, {
+                Log.d("","")
+            })
         }
 
     }
@@ -51,13 +62,16 @@ class TaskDetailsActivity : AppCompatActivity() {
             .appComponent((application as TaskManagerApp).component)
             .build().inject(this)
 
+        setupToolpar()
         setupRecycler()
         taskDetailsVM.getCurrentTask()?.observe(this, object : Observer<Task> {
             override fun onChanged(t: Task?) {
                 if (t != null) {
+
                     if (task == null) {
                         //insert
                         task = t
+                        task_details_title_tool_bar.text = task!!.title
                         items.add(0,TaskDetailsHeader(task!!,callback))
                     } else {
                         //update
@@ -69,6 +83,8 @@ class TaskDetailsActivity : AppCompatActivity() {
                     adapter.update(items)
 
                     observComments()
+                }else{
+                   finish()
                 }
             }
 
@@ -85,6 +101,29 @@ class TaskDetailsActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+
+
+    private fun setupToolpar(){
+        setSupportActionBar(task_details_toolbar)
+
+        delete_action_tool_bar.setOnClickListener {
+            if (task!= null) {
+                taskDetailsVM.delete(task!!).observeOn(AndroidSchedulers.mainThread()).subscribe({
+                    Log.d("","")
+                    Toast.makeText(this, "task has been removed",Toast.LENGTH_LONG).show()
+                }, {
+                    Log.d("","")
+                })
+            }
+        }
+
+        if(supportActionBar != null) {
+            supportActionBar!!.setTitle("")
+            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        }
     }
 
     private fun setupRecycler() {

@@ -27,5 +27,9 @@ class TaskDetailsViewModel(application: Application):ViewModelBase(application){
         return repository.addComment(comment)
     }
 
+    fun delete(task: Task): Completable {
+        return repository.deleteTask(task)
+    }
+
 
 }

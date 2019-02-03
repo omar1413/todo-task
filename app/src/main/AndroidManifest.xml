@@ -10,16 +10,28 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="false"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.login.LoginActivity">
+        <activity
+                android:theme="@style/AppTheme.NoActionBar"
+                android:name=".ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.tasks.TasksListActivity">
+        <activity
+                android:theme="@style/AppTheme.NoActionBar"
+                android:name=".ui.tasks.TasksListActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                       android:value=".ui.login.LoginActivity"/>
         </activity>
-        <activity android:name=".ui.task_details.TaskDetailsActivity">
+        <activity
+                android:theme="@style/AppTheme.NoActionBar"
+                android:name=".ui.task_details.TaskDetailsActivity">
+
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".ui.tasks.TasksListActivity"/>
         </activity>
     </application>
 

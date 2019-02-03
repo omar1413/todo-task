@@ -6,7 +6,8 @@ class Utils{
     companion object {
 
         fun createTask(task: Task): Task {
-            val newTask = Task(task.title, task.status, task.date, task.priority, task.userId)
+            val newTask = Task(task.title, task.status, task.priority, task.userId)
+            newTask.date = task.date
             newTask.id = task.id
             return newTask
         }

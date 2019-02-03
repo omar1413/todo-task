@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -21,6 +22,7 @@ import com.example.omar.taskmanager.utils.TaskListUpdateCallback
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.activity_task_details.*
 import kotlinx.android.synthetic.main.activity_tasks_list.*
 import javax.inject.Inject
 
@@ -99,12 +101,7 @@ class TasksListActivity : AppCompatActivity() {
         val g = this
         taskListVm.getCurrentUser()?.observeOn(AndroidSchedulers.mainThread())?.subscribe({
 
-
-            taskListVm.getTasks(5).observe(g,object :Observer<List<Task>>{
-                override fun onChanged(t: List<Task>?) {
-
-                }
-            })
+            title_tool_bar.text = it.username + "'s " + "Tasks"
             taskListVm.getTasks(it.id).observe(this, object : Observer<List<Task>> {
                 override fun onChanged(t: List<Task>?) {
 
@@ -123,39 +120,33 @@ class TasksListActivity : AppCompatActivity() {
 
                         updateTasksList()
                     }
-
-
-//                    if(t != null){
-//                        var shouldGoUp = false;
-//                        var counter = 0
-//                        for (task in t){
-//                            if (tasks?.size!! > counter ){
-//                                val realCounter = tasks?.size - counter - 1
-//                                if (tasks?.get(realCounter).task.equals(task)){
-//
-//                                }else{
-//                                    tasks?.removeAt(realCounter)
-//                                    tasks?.add(realCounter, TaskItem(task,callbackTaskItem))
-//                                }
-//
-//                            }else{
-//                                tasks.add(0,TaskItem(task,callbackTaskItem))
-//                                shouldGoUp = true
-//                            }
-//
-//                            counter++
-//                        }
-//                        adapter.update(tasks)
-//                        if (shouldGoUp) {
-//                            tasks_recycler.scrollToPosition(0)
-//                        }
-//                    }
                 }
 
             })
         }, {
 
         })
+
+        setupToolpar()
+    }
+
+    private fun setupToolpar(){
+        setSupportActionBar(task_list_toolbar)
+        filter_action_toolbar.setOnClickListener {
+            isFiltered = !isFiltered
+
+            if(isFiltered){
+                filter_action_toolbar.setBackgroundResource(R.drawable.filter_blue)
+            }else{
+                filter_action_toolbar.setBackgroundResource(R.drawable.filter_black)
+            }
+            updateTasksList()
+        }
+        if(supportActionBar != null) {
+            supportActionBar!!.setTitle("")
+            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        }
     }
 
     private fun updateTasksList(){
@@ -188,18 +179,6 @@ class TasksListActivity : AppCompatActivity() {
         taskDialog.show(fm, "fragment_dialog")
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val id = item?.itemId
-        if (id == R.id.filter) {
-            isFiltered = !isFiltered
 
-            updateTasksList()
-        }
-        return super.onOptionsItemSelected(item)
-    }
 }

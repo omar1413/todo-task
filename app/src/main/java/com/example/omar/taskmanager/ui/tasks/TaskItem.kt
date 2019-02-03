@@ -19,7 +19,11 @@ class TaskItem(var task: Task, val callbackTaskItem: CallbackTaskItem) : Item<Vi
     override fun bind(viewHolder: ViewHolder, position: Int) {
         val v = viewHolder.itemView
         v.task_title_txt_view.text = task.title
-        v.task_date_txt_view.text = task.date.toString()
+        if (task.date != null) {
+            v.task_date_txt_view.text = task.date.toString()
+        }else{
+            v.task_date_txt_view.text = ""
+        }
 
         if (task.status == Task.Status.DONE) {
             v.task_done_status_btn.setBackgroundResource(R.drawable.check_circle)
