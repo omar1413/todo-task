@@ -38,16 +38,16 @@
             android:hint="Comment"
             android:paddingLeft="10dp"
             android:ems="10"
-            android:id="@+id/editText" android:layout_marginStart="8dp"
+            android:id="@+id/comment_edtxt" android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="@+id/view4" android:layout_marginLeft="8dp"
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="@+id/view4" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toStartOf="@+id/button" android:layout_marginRight="8dp"/>
+            app:layout_constraintEnd_toStartOf="@+id/send_comment_btn" android:layout_marginRight="8dp"/>
     <Button
             android:background="@drawable/send_comment"
             android:layout_width="60dp"
             android:layout_height="60dp" android:layout_marginRight="8dp"
-            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:id="@+id/button"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:id="@+id/send_comment_btn"
             app:layout_constraintTop_toTopOf="@+id/view4" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/view4"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

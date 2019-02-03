@@ -23,5 +23,9 @@ class TaskDetailsViewModel(application: Application):ViewModelBase(application){
         return repository.getComments(id)
     }
 
+    fun addComment(comment: Comment): Completable {
+        return repository.addComment(comment)
+    }
+
 
 }

@@ -3,6 +3,7 @@ package com.example.omar.taskmanager.ui.task_details
 import android.view.View
 import com.example.omar.taskmanager.R
 import com.example.omar.taskmanager.data.database.tables.Task
+import com.example.omar.taskmanager.utils.Utils.Companion.createTask
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.task_details_header.*
@@ -105,11 +106,7 @@ class TaskDetailsHeader(val task: Task, val callbackTaskItem:CallbackTaskHeader)
         v.task_details_low_priority_btn.setBackgroundResource(R.drawable.r1)
     }
 
-    private fun createTask(task: Task): Task {
-        val newTask = Task(task.title, task.status, task.date, task.priority, task.userId)
-        newTask.id = task.id
-        return newTask
-    }
+
 
     interface CallbackTaskHeader {
         fun taskUpdated(task: Task)

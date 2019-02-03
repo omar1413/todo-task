@@ -27,4 +27,8 @@ class TasksListViewModel(application: Application): ViewModelBase(application){
         repository.saveCurrentTask(task)
     }
 
+    fun deleteTask(task: Task): Completable {
+        return repository.deleteTask(task)
+    }
+
 }

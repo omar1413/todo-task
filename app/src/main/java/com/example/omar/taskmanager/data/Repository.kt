@@ -70,4 +70,12 @@ class Repository(val taskManagerDatabase: TaskManagerDatabase, val appSharedPref
         return taskManagerDatabase.commentDao().getAllComments(id)
     }
 
+    fun addComment(comment: Comment): Completable {
+        return taskManagerDatabase.commentDao().insertComment(comment).subscribeOn(Schedulers.io())
+    }
+
+    fun deleteTask(task:Task):Completable {
+        return taskManagerDatabase.taskDao().deleteTask(task).subscribeOn(Schedulers.io())
+    }
+
 }

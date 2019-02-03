@@ -3,6 +3,7 @@ package com.example.omar.taskmanager.ui.tasks
 import android.view.View
 import com.example.omar.taskmanager.R
 import com.example.omar.taskmanager.data.database.tables.Task
+import com.example.omar.taskmanager.utils.Utils.Companion.createTask
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.task_details_header.view.*
@@ -108,12 +109,6 @@ class TaskItem(var task: Task, val callbackTaskItem: CallbackTaskItem) : Item<Vi
         fun taskUpdated(task: Task)
         fun taskClicked(task: Task)
 
-    }
-
-    private fun createTask(task: Task): Task {
-        val newTask = Task(task.title, task.status, task.date, task.priority, task.userId)
-        newTask.id = task.id
-        return newTask
     }
 
     override fun equals(other: Any?): Boolean {

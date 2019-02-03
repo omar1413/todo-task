@@ -1,6 +1,7 @@
 package com.example.omar.taskmanager.ui.task_details
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,10 +11,12 @@ import com.example.omar.taskmanager.dagger.component.DaggerActivityComponent
 import com.example.omar.taskmanager.dagger.module.ActivityModule
 import com.example.omar.taskmanager.data.database.tables.Comment
 import com.example.omar.taskmanager.data.database.tables.Task
+import com.example.omar.taskmanager.utils.Utils.Companion.createTask
 import com.xwray.groupie.Group
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_task_details.*
+import java.util.*
 import javax.inject.Inject
 
 class TaskDetailsActivity : AppCompatActivity() {
@@ -71,6 +74,16 @@ class TaskDetailsActivity : AppCompatActivity() {
 
         })
 
+        send_comment_btn.setOnClickListener {
+            if(task != null &&!(comment_edtxt.text.toString().trim().isEmpty())){
+                val comment = Comment(comment_edtxt.text.toString(),Date(),task!!.id)
+                taskDetailsVM.addComment(comment).subscribe({
+                    Log.d("","")
+                },{
+                    Log.d("","")
+                })
+            }
+        }
 
     }
 
@@ -86,14 +99,13 @@ class TaskDetailsActivity : AppCompatActivity() {
             taskDetailsVM.getComments(task!!.id).observe(this, object : Observer<List<Comment>> {
                 override fun onChanged(t: List<Comment>?) {
                     if (t != null) {
-                        val newT = t.reversed()
                         var counter = 1
-                        for (comment in newT) {
+                        for (comment in t) {
 
                             if (items.size <= counter){
                                 items.add(1,CommentItem(comment))
                             }
-
+                            counter++
                         }
 
                         adapter.update(items)

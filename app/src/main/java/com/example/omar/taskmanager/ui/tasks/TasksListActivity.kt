@@ -8,6 +8,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.omar.taskmanager.R
 import com.example.omar.taskmanager.TaskManagerApp
@@ -33,6 +34,14 @@ class TasksListActivity : AppCompatActivity() {
 
     @Inject
     lateinit var taskListVm: TasksListViewModel
+
+
+    var recyclerItemTouchHelperListner = object :RecyclerItemTouchHelper.RecyclerItemTouchHelperListner{
+        override fun onSwiped(pos: Int) {
+           taskListVm.deleteTask(tasks.get(pos).task).subscribe({},{})
+        }
+
+    }
 
     var callbackTaskItem = object : TaskItem.CallbackTaskItem {
         override fun taskClicked(task: Task) {
@@ -168,6 +177,7 @@ class TasksListActivity : AppCompatActivity() {
 
     private fun setupRecycler() {
         tasks_recycler.layoutManager = linearLayoutManager
+        ItemTouchHelper(RecyclerItemTouchHelper(0,ItemTouchHelper.LEFT,recyclerItemTouchHelperListner)).attachToRecyclerView(tasks_recycler)
         tasks_recycler.adapter = adapter
 
     }
