@@ -1,22 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_width="400dp"
+              android:layout_height="300dp"
+android:background="@drawable/linear_background_task_create">
 
     <TextView
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:textStyle="bold"
             android:text="create task"
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:id="@+id/textView2"/>
     <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+
+            android:layout_margin="8dp"
+            android:layout_gravity="center"
+            android:gravity="center|left"
+            android:padding="8dp"
+            android:background="@drawable/login_username_edtxt"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
             android:inputType="textPersonName"
-            android:text="Name"
             android:ems="10"
             android:id="@+id/task_title_edtxt"/>
     <Button
+
+            android:layout_margin="8dp"
+            android:layout_gravity="center"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="#fff"
             android:text="create"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:id="@+id/task_create_btn"/>
+            android:background="@drawable/login_btn"
+            android:layout_width="200dp"
+            android:layout_height="60dp" android:id="@+id/task_create_btn"/>
 </LinearLayout>

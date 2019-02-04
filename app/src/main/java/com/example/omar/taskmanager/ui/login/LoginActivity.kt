@@ -3,6 +3,7 @@ package com.example.omar.taskmanager.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.omar.taskmanager.R
 import com.example.omar.taskmanager.TaskManagerApp
@@ -33,6 +34,10 @@ class LoginActivity : AppCompatActivity() {
 
         login_btn.setOnClickListener {
             val username = user_name_edtxt_login.text.toString()
+            if(username.trim().isEmpty()){
+                Toast.makeText(this, "Enter a user name, plz", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             loginVM.getUser(username)?.subscribe { user, th ->
                 if (user == null) {
                     registerUser(username)

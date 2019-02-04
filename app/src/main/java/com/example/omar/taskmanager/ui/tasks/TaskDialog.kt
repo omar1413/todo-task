@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.omar.taskmanager.R
 import com.example.omar.taskmanager.TaskManagerApp
@@ -53,8 +54,11 @@ class TaskDialog(): DialogFragment(){
     fun onClickCreate(view: View, user: User){
         view.task_create_btn.setOnClickListener {
             val taskTitle = view.task_title_edtxt.text.toString()
-
-            taskCreateViewModel.createTask(Task(taskTitle,Task.Status.IN_PROGRESS,Task.Priority.MEDIUM,user.id)).subscribe(
+            if(taskTitle.trim().isEmpty()){
+                Toast.makeText(context, "Enter a task title, plz", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            taskCreateViewModel.createTask(Task(taskTitle,Task.Status.IN_PROGRESS,user.id)).subscribe(
                 {
                     //done
                     Log.d("", "")

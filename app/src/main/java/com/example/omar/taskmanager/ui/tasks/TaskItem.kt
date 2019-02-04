@@ -8,6 +8,8 @@ import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.task_details_header.view.*
 import kotlinx.android.synthetic.main.task_item.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class TaskItem(var task: Task, val callbackTaskItem: CallbackTaskItem) : Item<ViewHolder>() {
 
@@ -20,7 +22,8 @@ class TaskItem(var task: Task, val callbackTaskItem: CallbackTaskItem) : Item<Vi
         val v = viewHolder.itemView
         v.task_title_txt_view.text = task.title
         if (task.date != null) {
-            v.task_date_txt_view.text = task.date.toString()
+            val df = SimpleDateFormat("MMMM dd yyyy", Locale.US)
+            v.task_date_txt_view.text = df.format(task.date)
         }else{
             v.task_date_txt_view.text = ""
         }
@@ -81,8 +84,11 @@ class TaskItem(var task: Task, val callbackTaskItem: CallbackTaskItem) : Item<Vi
             setLowPriority(v)
         } else if (task.priority == Task.Priority.MEDIUM) {
             setMedPriority(v)
-        } else {
+        } else if (task.priority == Task.Priority.HIGH) {
             setHighPriority(v)
+        }
+        else{
+            setPriorityDefault(v)
         }
     }
 

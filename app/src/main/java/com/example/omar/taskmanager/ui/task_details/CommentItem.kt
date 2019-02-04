@@ -2,6 +2,7 @@ package com.example.omar.taskmanager.ui.task_details
 
 import com.example.omar.taskmanager.R
 import com.example.omar.taskmanager.data.database.tables.Comment
+import com.example.omar.taskmanager.utils.Utils
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.comment_of_task_item.view.*
@@ -18,13 +19,11 @@ class CommentItem(var comment: Comment): Item<ViewHolder>(){
         v.time_ago_txt_view.text = timeAgo().toString()
     }
 
-    private fun timeAgo(): Date {
+    private fun timeAgo(): String {
         val oldDate = comment.date
         val newData = Date()
 
-        var timeAgo = ""
-        val diffDate = Date(newData.time - oldDate.time)
-        return diffDate
+        return Utils.dateDiff(newData, oldDate)
     }
 
 }

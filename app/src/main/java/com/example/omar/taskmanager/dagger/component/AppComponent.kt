@@ -1,6 +1,7 @@
 package com.example.omar.taskmanager.dagger.component
 
 import android.content.Context
+import android.view.inputmethod.InputMethodManager
 import com.example.omar.taskmanager.TaskManagerApp
 import com.example.omar.taskmanager.ui.login.LoginViewModel
 import com.example.omar.taskmanager.dagger.module.AppModule
@@ -17,5 +18,5 @@ interface AppComponent{
 
     fun inject(viewModelBase: ViewModelBase)
 
-    //fun provideContext():Context
+    fun getInputManage(): InputMethodManager
 }

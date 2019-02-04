@@ -18,11 +18,12 @@ class Task(
     var title: String,
     var status: Int,
 
-    var priority: Int,
+
     @ColumnInfo(name = "user_id") var userId: Int
 ){
 
 
+    var priority: Int = Priority.NOT_SET
     var date: Date? = null
     @PrimaryKey(autoGenerate = true) var id: Int = 0
 
@@ -35,6 +36,7 @@ class Task(
 
     class Priority{
         companion object {
+            val NOT_SET = 0
             val LOW = 1
             val MEDIUM = 2
             val HIGH = 3
@@ -43,8 +45,13 @@ class Task(
 
     override fun equals(other: Any?): Boolean {
         val task = other as Task
-        if (title.equals(task.title) && status == task.status && priority == task.priority){
-            return true
+        if (title.equals(task.title) && status == task.status && priority == task.priority ){
+            if(date == null && task.date == null){
+                return true
+            }else if (date != null &&task.date != null && date!!.equals(task.date)){
+                return true
+            }
+
         }
 
         return false

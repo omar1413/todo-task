@@ -16,4 +16,6 @@ interface ActivityComponent{
     fun inject(activity: LoginActivity)
     fun inject(activity: TasksListActivity)
     fun inject(activity: TaskDetailsActivity)
+
+
 }

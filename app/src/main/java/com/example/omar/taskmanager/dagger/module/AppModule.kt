@@ -2,6 +2,7 @@ package com.example.omar.taskmanager.dagger.module
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.view.inputmethod.InputMethodManager
 import com.example.omar.taskmanager.TaskManagerApp
 import com.example.omar.taskmanager.dagger.qualifier.ApplicationContext
 import com.example.omar.taskmanager.dagger.qualifier.SharedInfo
@@ -46,5 +47,11 @@ class AppModule(val context: Context){
     @Provides
     fun getAppContext():Context{
         return context
+    }
+
+    @AppScope
+    @Provides
+    fun getInputManage():InputMethodManager{
+        return context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     }
 }

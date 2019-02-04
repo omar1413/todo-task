@@ -10,6 +10,7 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.task_details_header.*
 import kotlinx.android.synthetic.main.task_details_header.view.*
 import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 class TaskDetailsHeader(val task: Task, val callbackTaskItem:CallbackTaskHeader): Item<ViewHolder>() {
@@ -30,7 +31,7 @@ class TaskDetailsHeader(val task: Task, val callbackTaskItem:CallbackTaskHeader)
 
     private fun setDateTxtView(v: View) {
         if(task.date != null) {
-            val df = DateFormat.getDateInstance()
+            val df = SimpleDateFormat("MMMM dd yyyy",Locale.US)
             v.task_details_date_text_view.text = df.format(task.date)
         }else{
             v.task_details_date_text_view.text = "Open Calendar"
@@ -52,8 +53,11 @@ class TaskDetailsHeader(val task: Task, val callbackTaskItem:CallbackTaskHeader)
             setLowPriority(v)
         } else if (task.priority == Task.Priority.MEDIUM) {
             setMedPriority(v)
-        } else {
+        }else if (task.priority == Task.Priority.HIGH) {
             setHighPriority(v)
+        }
+        else{
+            setPriorityDefault(v)
         }
     }
 
@@ -128,18 +132,26 @@ class TaskDetailsHeader(val task: Task, val callbackTaskItem:CallbackTaskHeader)
             callbackTaskItem.taskUpdated(newTask)
         }
 
+        v.date_right_txt_view.setOnClickListener {
+            openDatePicker(v,datePickerListner)
+        }
+
         v.task_details_date_text_view.setOnClickListener {
-            val date = task.date
-            val calendar = Calendar.getInstance()
-
-            if (date != null){
-                calendar.time = date
-
-            }
-            DatePickerDialog(v.context,datePickerListner,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONDAY),calendar.get(Calendar.DAY_OF_MONTH)).show()
-
+            openDatePicker(v,datePickerListner)
         }
         //DatePickerDialog(this,datePickerListner,)
+    }
+
+    private fun openDatePicker(v: View, datePickerListner:DatePickerDialog.OnDateSetListener){
+        val date = task.date
+        val calendar = Calendar.getInstance()
+
+        if (date != null){
+            calendar.time = date
+
+        }
+        DatePickerDialog(v.context,datePickerListner,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONDAY),calendar.get(Calendar.DAY_OF_MONTH)).show()
+
     }
 
 

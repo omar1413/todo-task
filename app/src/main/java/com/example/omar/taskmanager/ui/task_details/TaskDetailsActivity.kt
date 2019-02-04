@@ -3,7 +3,9 @@ package com.example.omar.taskmanager.ui.task_details
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -36,6 +38,9 @@ class TaskDetailsActivity : AppCompatActivity() {
 
     @Inject
     lateinit var linearLayoutManager: LinearLayoutManager
+
+    @Inject
+    lateinit var inputeManager: InputMethodManager
 
     var task: Task? = null
     var comments: MutableList<Comment> = mutableListOf()
@@ -93,6 +98,8 @@ class TaskDetailsActivity : AppCompatActivity() {
         send_comment_btn.setOnClickListener {
             if(task != null &&!(comment_edtxt.text.toString().trim().isEmpty())){
                 val comment = Comment(comment_edtxt.text.toString(),Date(),task!!.id)
+                comment_edtxt.text.clear()
+                inputeManager.hideSoftInputFromWindow(currentFocus.windowToken,InputMethodManager.HIDE_NOT_ALWAYS)
                 taskDetailsVM.addComment(comment).subscribe({
                     Log.d("","")
                 },{
